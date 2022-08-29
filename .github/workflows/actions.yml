@@ -88,6 +88,10 @@ jobs:
     name: "Terraform_apply"
     if: ${{ github.event.inputs.action == 'Terraform_apply' }}
     runs-on: ubuntu-latest
+    env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            AWS_DEFAULT_REGION: ${{ secrets.REGION }}
     defaults:
       run:
         working-directory: ${{ github.event.inputs.resource }}
@@ -101,10 +105,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-        env:
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            AWS_DEFAULT_REGION: ${{ secrets.REGION }}
+        
       
       - name: Terraform Validate
         id: validate
@@ -113,11 +114,7 @@ jobs:
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve 
-        env:
-            AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-            AWS_SESSION_TOKEN: ${{secrets.AWS_SESSION_TOKEN}}
-            AWS_DEFAULT_REGION: ${{ secrets.REGION }}
+        
     
   terraform_destroy:
     name: "Terraform_destroy"
