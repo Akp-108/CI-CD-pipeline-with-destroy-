@@ -4,9 +4,6 @@ env:
   working-directry: ./user
 
 on: 
-  push: 
-    branches: ["main", "master"]
-
     workflow_dispatch:
 
 
@@ -35,29 +32,8 @@ jobs:
         id: init
         run: terraform init
         working-directory: ${{env.working-directry}}
-
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate 
-        working-directory: ${{env.working-directry}}
-
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan 
-        working-directory: ${{env.working-directry}}
       
-      - name: Terrafom Plan status
-        if: steps.plan.outcome == 'failure'
-        run: echo somthing error place check the code once!!!!!!
-
-      - name: Terraform apply
-        id: apply
-        if: steps.plan.outcome != 'failure'
-        run: terraform apply -auto-approve
-        working-directory: ${{env.working-directry}}
-
       - name: Terraform destroy
         id: destroy
         run: terraform destroy -auto-approve
         working-directory: ${{env.working-directry}}
-      
