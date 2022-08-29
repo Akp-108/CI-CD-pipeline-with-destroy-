@@ -1,4 +1,4 @@
-name: Terraform
+name: Destroy
 
 env:
   working-directry: ./user
@@ -18,15 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run a one-line script
-        run: echo this is code for terraform file
-
       - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v2
-
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt -check
 
       - name: Terraform Init
         id: init
