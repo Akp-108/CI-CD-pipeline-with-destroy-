@@ -14,10 +14,27 @@ provider "aws" {
 
 
 resource "aws_iam_user" "lb" {
-  name = "terraform29082022"
+  name = "terraform2908202222"
   path = "/system/"
 
   tags = {
     tag-key = "pandey"
   }
 }
+
+terraform {
+  backend "s3" {
+    bucket = "destroy3008"
+    key    = "terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
+# resource "aws_s3_bucket" "b" {
+#   bucket = var.bucket_name
+
+#   tags = {
+#     Name        = "My bucket"
+#     Environment = "Dev"
+#   }
+# }
